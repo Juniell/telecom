@@ -1,0 +1,9 @@
+/.idea/
+thinkdsp.py
+*.aux
+*.lof
+*.log
+*.lol
+*.out
+*.toc
+*.gz
