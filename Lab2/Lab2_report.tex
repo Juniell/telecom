@@ -60,7 +60,8 @@
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
-    tabsize=4
+    tabsize=4,
+    language=Python
 }
 
 \lstset{style=habrstyle}
@@ -171,7 +172,7 @@
 
     Итак, начнём с написания класса \texttt{SawtoothSignal}.
 
-    \begin{lstlisting}[language=Python, caption= Создание класса \texttt{SawtoothSignal}., label={lst:task2_create_class}]
+    \begin{lstlisting}[caption= Создание класса \texttt{SawtoothSignal}., label={lst:task2_create_class}]
 import numpy
 from thinkdsp import decorate, Sinusoid, normalize, unbias, SquareSignal, \
     TriangleSignal, SinSignal
@@ -189,7 +190,7 @@ class SawtoothSignal (Sinusoid):
     Теперь проверим работу нашего класса, создав пилообразный сигнал. Затем преобразуем его к \texttt{wave} и выведем график его небольшого сегмента, чтобы увидеть поведение сигнала.
     Тут же прослушаем полученный сигнал.
 
-    \begin{lstlisting}[language=Python, caption= Работа с пилообразным сигналом., label={lst:task2_work_with_swatooth}]
+    \begin{lstlisting}[caption= Работа с пилообразным сигналом., label={lst:task2_work_with_swatooth}]
 sawtooth_signal = SawtoothSignal()
 sawtooth_wave = sawtooth_signal.make_wave(duration=0.5, framerate=60000)
 sawtooth_wave.segment(start=0, duration=sawtooth_signal.period*4).plot()
@@ -202,7 +203,7 @@ sawtooth_wave.make_audio()
 
     Теперь вычислим спектр полученного пилообразного сигнала.
 
-    \begin{lstlisting}[language=Python, caption= Вычисление и вывод спектра пилообразного сигнала., label={lst:task2_spectrum_sawtooth}]
+    \begin{lstlisting}[caption= Вычисление и вывод спектра пилообразного сигнала., label={lst:task2_spectrum_sawtooth}]
 sawtooth_wave.make_spectrum().plot()
 decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
     \end{lstlisting}
@@ -224,7 +225,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
     Далее сопоставим спектры пилообразного и треугольного сигналов.
     Для этого создадим треугольный сигнал и преобразуем его к \texttt{wave}, после чего выведем его спектр вместе со спектром пилообразного сигнала.
 
-    \begin{lstlisting}[language=Python, caption= Вывод спектров треугольного и пилообразного сигналов., label={lst:task2_spectrum_sawtooth_triangle}]
+    \begin{lstlisting}[caption= Вывод спектров треугольного и пилообразного сигналов., label={lst:task2_spectrum_sawtooth_triangle}]
 sawtooth_wave.make_spectrum().plot(color='red')
 triangle_wave = TriangleSignal(amp=0.79).make_wave(duration=0.5, framerate=60000)
 triangle_wave.make_audio()
@@ -245,7 +246,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
 
     Теперь сравним спектры пилообразного и прямоугольного сигналов.
 
-    \begin{lstlisting}[language=Python, caption= Вывод спектров прямоугольного и пилообразного сигналов., label={lst:task2_spectrum_sawtooth_square}]
+    \begin{lstlisting}[caption= Вывод спектров прямоугольного и пилообразного сигналов., label={lst:task2_spectrum_sawtooth_square}]
 sawtooth_wave.make_spectrum().plot(color='red')
 square_wave = SquareSignal(amp=0.5).make_wave(duration=0.5, framerate=60000)
 square_wave.make_audio()
@@ -282,7 +283,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
     Итак, начнём с создания прямоугольного сигнала заданной частоты. Затем вычислим его \texttt{wave} с выборками 10000 кадров в секунду,
     после чего выведем его спектр (Рис.\ref{fig:task3_spectrum}).
 
-    \begin{lstlisting}[language=Python, caption= Создание сигнала и получение его \texttt{wave}., label={lst:task3_create_and_spectrum}]
+    \begin{lstlisting}[caption= Создание сигнала и получение его \texttt{wave}., label={lst:task3_create_and_spectrum}]
 square_wave = SquareSignal(1100).make_wave(duration=0.5, framerate=10000)
 square_wave.make_spectrum().plot()
 decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
@@ -308,7 +309,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
     Теперь узнаем, слышны ли последствия этого эффекта при проигрывании.
     Для этого сначала преобразуем \texttt{wave} нашего сигнала в аудио и прослушаем.
 
-    \begin{lstlisting}[language=Python, caption= Преобразование в аудио., label={lst:task3_audio_square}]
+    \begin{lstlisting}[caption= Преобразование в аудио., label={lst:task3_audio_square}]
 square_wave.make_audio()
     \end{lstlisting}
 
@@ -316,7 +317,7 @@ square_wave.make_audio()
     в нашем же случае это 100 Гц ("завёрнутая" четвёртая по счёту гармоника).
     А потому сравним полученный звук с синусоидой 100 Гц.
 
-    \begin{lstlisting}[language=Python, caption= Получение аудио синусоиды 100 Гц., label={lst:task3_audio_sin}]
+    \begin{lstlisting}[caption= Получение аудио синусоиды 100 Гц., label={lst:task3_audio_sin}]
 SinSignal(100).make_wave(duration=0.5, framerate=10000).make_audio()
     \end{lstlisting}
 
@@ -345,7 +346,7 @@ SinSignal(100).make_wave(duration=0.5, framerate=10000).make_audio()
 
     Итак, для начала создадим треугольный сигнал частотой 440 Гц, получим и выведем его \texttt{wave}.
 
-    \begin{lstlisting}[language=Python, caption= Создание сигнала и получение\texttt{wave}., label={lst:task4_wave}]
+    \begin{lstlisting}[caption= Создание сигнала и получение\texttt{wave}., label={lst:task4_wave}]
 triangle_wave = TriangleSignal(440).make_wave(duration=0.01)
 triangle_wave.plot()
 decorate(xlabel='Time (s)')
@@ -360,7 +361,7 @@ decorate(xlabel='Time (s)')
 
     Теперь получим спектр и выведем \texttt{spectrum.hs[0]}.
 
-    \begin{lstlisting}[language=Python, caption= Получение спектра и вывод \texttt{spectrum.hs[0]}., label={lst:task4_spectrum_hs}]
+    \begin{lstlisting}[caption= Получение спектра и вывод \texttt{spectrum.hs[0]}., label={lst:task4_spectrum_hs}]
 triangle_spectrum = triangle_wave.make_spectrum()
 triangle_spectrum.hs[0]
     \end{lstlisting}
@@ -372,7 +373,7 @@ triangle_spectrum.hs[0]
     Теперь установим \texttt{spectrum.hs[0] = 100} и проверим, как это повлияет на сигнал.
     Для этого преобразуем изменённый спектр к \texttt{wave} и сравним его с неизменённым \texttt{wave}.
 
-    \begin{lstlisting}[language=Python, caption= Изменение первого элемента спектра и сравнение с первоначальным., label={lst:task4_editing_hs_and_copmare}]
+    \begin{lstlisting}[caption= Изменение первого элемента спектра и сравнение с первоначальным., label={lst:task4_editing_hs_and_copmare}]
 triangle_spectrum.hs[0] = 100
 triangle_wave.plot(color='blue')
 triangle_spectrum.make_wave().plot(color='red')
@@ -407,7 +408,7 @@ decorate(xlabel='Time (s)')
 
     Сначала напишем функцию. Не забываем, что на нуль делить не стоит, а потому компоненту нулевой частоты обрабатываем отдельно.
 
-    \begin{lstlisting}[language=Python, caption= {Функция, изменяющая спектр.}, label={lst:task5_function}]
+    \begin{lstlisting}[caption= {Функция, изменяющая спектр.}, label={lst:task5_function}]
 def change_spectrum(spectrum):
     spectrum.hs[0] = 0
     spectrum.hs[1:] /= spectrum.fs[1:]
@@ -416,7 +417,7 @@ def change_spectrum(spectrum):
     Теперь протестируем нашу функцию на пилообразном сигнале. Для этого сначала создадим сигнал, после чего вычислим и распечатаем его спектр.
     Тут же получим аудио нашего сигнала для последующего сравнения.
 
-    \begin{lstlisting}[language=Python, caption= Создание пилообразного сигнала и получение его спектра., label={lst:task5_spectrum}]
+    \begin{lstlisting}[caption= Создание пилообразного сигнала и получение его спектра., label={lst:task5_spectrum}]
 sawtooth_wave = SawtoothSignal().make_wave(duration=0.5)
 sawtooth_wave.make_audio()
 
@@ -434,7 +435,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
 
     Теперь изменим спектр с помощью нашей функции и сравним его с первоначальным спектром.
 
-    \begin{lstlisting}[language=Python, caption= Изменение спектра и его сравнине с первоначальным спектром., label={lst:task5_compare_spectrum}]
+    \begin{lstlisting}[caption= Изменение спектра и его сравнине с первоначальным спектром., label={lst:task5_compare_spectrum}]
 sawtooth_spectrum.plot(color='blue')
 change_spectrum(sawtooth_spectrum)
 sawtooth_spectrum.scale(440)
@@ -451,7 +452,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
 
     Ну и наконец получим аудио из изменённого спектра для сравнения с первоначальным.
 
-    \begin{lstlisting}[language=Python, caption= Получение аудио., label={lst:task5_new_wave_audio}]
+    \begin{lstlisting}[caption= Получение аудио., label={lst:task5_new_wave_audio}]
 sawtooth_spectrum.make_wave().make_audio()
     \end{lstlisting}
 
@@ -476,14 +477,14 @@ sawtooth_spectrum.make_wave().make_audio()
 
     Итак, создадим сигнал, получим его \texttt{wave} и аудио.
 
-    \begin{lstlisting}[language=Python, caption= Создание пилообразного сигнала и получение его \texttt{wave}., label={lst:task6_create_wave}]
+    \begin{lstlisting}[caption= Создание пилообразного сигнала и получение его \texttt{wave}., label={lst:task6_create_wave}]
 sawtooth_wave = SawtoothSignal(500).make_wave(duration=0.5, framerate=20000)
 sawtooth_wave.make_audio()
     \end{lstlisting}
 
     Теперь вычислим его спектр и выведем его.
 
-    \begin{lstlisting}[language=Python, caption= Вычисленине и вывод спектра., label={lst:task6_sawtooth_spectrum}]
+    \begin{lstlisting}[caption= Вычисленине и вывод спектра., label={lst:task6_sawtooth_spectrum}]
 sawtooth_spectrum = sawtooth_wave.make_spectrum()
 sawtooth_spectrum.plot()
 decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
@@ -502,7 +503,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
 
     Итак, изменим спад гармоник и сравним изменённый спектр с первоначальным.
 
-    \begin{lstlisting}[language=Python, caption= Изменение спада гармоник и сравнение спектров., label={lst:task6_change_and_compare_spectrum}]
+    \begin{lstlisting}[caption= Изменение спада гармоник и сравнение спектров., label={lst:task6_change_and_compare_spectrum}]
 sawtooth_spectrum.plot(color='blue')
 change_spectrum(sawtooth_spectrum)
 sawtooth_spectrum.scale(400)
@@ -520,7 +521,7 @@ decorate(xlabel='Frequency (Hz)', ylabel='Amplitude')
     Как видно из Рис.\ref{fig:task6_compare_spectrum}, теперь гармоники спадают как $1/f^2$.
     Преобразуем изменённый спектр в \texttt{wave}, выведем его сегмент и получим аудио.
 
-    \begin{lstlisting}[language=Python, caption= Получение аудио и \texttt{wave}., label={lst:task6_wave_and_audio}]
+    \begin{lstlisting}[caption= Получение аудио и \texttt{wave}., label={lst:task6_wave_and_audio}]
 sawtooth_wave_new = sawtooth_spectrum.make_wave()
 sawtooth_wave_new.segment(duration=0.01).plot()
 decorate(xlabel='Time (s)')
